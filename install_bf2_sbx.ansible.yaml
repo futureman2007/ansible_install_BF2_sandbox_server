@@ -1,0 +1,22 @@
+---
+- name: "Install bf2 Sandbox Server"
+  vars:
+    sandbox_server_version: "1.0.1"
+    bf2_server_version: "1.5.3"
+    bf2_server_os: "linux"
+  hosts: "bftwoservers"
+  gather_facts: true
+
+  vars_prompt:
+    - name: "bf2_user_prompted_pw"
+      prompt: "Enter the password for the bf2 Server user to be created:"
+    - name: "become_pw"
+      prompt: "Enter the Admin password defined on your servers system"
+
+  tasks:
+    - name: "Startmessage"
+      ansible.builtin.debug:
+        msg: "Starting sandbox {{ bf2_server_os }} server installation bf2: v{{ bf2_server_version }}, sandbox: {{ sandbox_server_version }} "
+  roles:
+#   - create_user
+    - install_sandbox_server

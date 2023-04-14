@@ -1,0 +1,6 @@
+---
+bf2_user: "bf2"
+bf2sbx_server_home: "/home/{{ bf2_user }}/sandbox"
+bf2_server_filesdir: "/home/{{ bf2_user }}/serverfiles/battlefield2"
+bf2sbx_server_filesdir: "/home/{{ bf2_user }}/serverfiles/sandbox"
+bf2sbx_mod_home: "{{ bf2sbx_server_home }}/bf2/mods" 
