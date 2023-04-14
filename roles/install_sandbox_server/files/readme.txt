@@ -10,3 +10,6 @@ Bf2 Server Files:
 downloads "battlefield2_linux_server_1.5.3153.0.tar.gz"
 
 and add them into this folder
+
+-> use github LFS
+https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-git-large-file-storage
