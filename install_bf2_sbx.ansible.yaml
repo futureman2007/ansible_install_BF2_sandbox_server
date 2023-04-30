@@ -10,13 +10,22 @@
   vars_prompt:
     - name: "bf2_user_prompted_pw"
       prompt: "Enter the password for the bf2 Server user to be created:"
-    - name: "become_pw"
-      prompt: "Enter the Admin password defined on your servers system"
 
   tasks:
     - name: "Startmessage"
       ansible.builtin.debug:
         msg: "Starting sandbox {{ bf2_server_os }} server installation bf2: v{{ bf2_server_version }}, sandbox: {{ sandbox_server_version }} "
   roles:
-#   - create_user
-    - install_sandbox_server
+    - install_screen
+  #  - install_sandbox_server
+
+
+# more things you can do:
+
+# Role: Ansible preperation:
+# Precondition: a Public-Pricate Keypair created to authenticate as Ansible
+# Create user Asnible with a default admin user (type user and pw AND sudo pw) (with home dir)
+# Add public key to known hosts (loaded from file.)
+# Add Ansible as Sudo user with ansible ALL=(ALL:ALL) NOPASSWD:ALL
+# Add "PasswordAuthentication no" into the .sshconfig file to only allow auth with keys
+# NOTE: When implementing, use a predefined private key, and add it (Encrypted with ansible-vault) into the repo/role
