@@ -16,12 +16,12 @@
       ansible.builtin.debug:
         msg: "Starting sandbox {{ bf2_server_os }} server installation bf2: v{{ bf2_server_version }}, sandbox: {{ sandbox_server_version }} "
   roles:
-    - install_screen
+    - install_needed_apps
     - install_sandbox_server
 
 
 # more things you can do:
-
+#TODO:
 # Role: Ansible preperation:
 # Precondition: a Public-Pricate Keypair created to authenticate as Ansible
 # Create user Asnible with a default admin user (type user and pw AND sudo pw) (with home dir)
@@ -29,3 +29,10 @@
 # Add Ansible as Sudo user with ansible ALL=(ALL:ALL) NOPASSWD:ALL
 # Add "PasswordAuthentication no" into the .sshconfig file to only allow auth with keys
 # NOTE: When implementing, use a predefined private key, and add it (Encrypted with ansible-vault) into the repo/role
+# Add Logic: instead of using the files from local repo in role/installbf2server/files, provide a server (maybe your own)
+#            to download it.
+#
+#   add to users crontab:
+#     @reboot @reboot sleep20; cd /home/bf2/sandbox/bf2 && /usr/bin/screen -L -A -m -d -S bf2sbx ./start.sh +modPath mods/sandbox
+#     */5 * * * * /home/bf2/sandbox/scripts/checkServerRunning.sh
+#   
