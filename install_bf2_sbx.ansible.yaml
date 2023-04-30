@@ -36,3 +36,5 @@
 #     @reboot @reboot sleep20; cd /home/bf2/sandbox/bf2 && /usr/bin/screen -L -A -m -d -S bf2sbx ./start.sh +modPath mods/sandbox
 #     */5 * * * * /home/bf2/sandbox/scripts/checkServerRunning.sh
 #   
+# In Role install bf2 server: add exeption: if unpack cannot be executed, remove the files (call handler)
+# Add handler to restart ssh, when created ansible user 

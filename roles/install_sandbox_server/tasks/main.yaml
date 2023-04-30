@@ -38,7 +38,7 @@
     
 - name: "Upload bf2 serverfiles"
   ansible.builtin.copy:
-    src: "../files/battlefield2_linux_server_1.5.3153.0.tar.gz"
+    src: "../files/{{ bf2_serverfilename }}"
     dest: "{{ bf2_server_filesdir }}"
     owner: "{{ bf2_user }}"
     group: "{{ bf2_user }}"
@@ -46,29 +46,38 @@
 
 - name: "Upload sandbox serverfiles"
   ansible.builtin.copy:
-    src: ../files/sandbox_server_1.0.1.zip
+    src: ../files/{{ bf2sbx_serverfilename }}
     dest: "{{ bf2sbx_server_filesdir }}"
     group: "{{ bf2_user }}"
     owner: "{{ bf2_user }}"
   become: true
-
-- name: "Decompress bf2 Serverfiles into {{ bf2sbx_server_home }} directory. This will install the bf2 server"
+  
+- name: "Decompress bf2 Serverfiles from {{ bf2_server_filesdir }}/{{ bf2_serverfilename }} into {{ bf2sbx_server_home }} directory. This will install the bf2 server"
   ansible.builtin.unarchive:
     group: "{{ bf2_user }}"
     owner: "{{ bf2_user }}"
     remote_src: true
-    src: "{{ bf2_server_filesdir }}"
+    src: "{{ bf2_server_filesdir }}/{{ bf2_serverfilename }}"
     dest: "{{ bf2sbx_server_home }}"
+    extra_opts:
+    - '-z'
+    #-z needed because it is a tar.gz file
   become: true
 
-- name: "Decompress sandbox Serverfiles into {{ bf2sbx_mod_home }} directory. This will install the sandbox mod into the existing bf2 server"
+- name: "Decompress sandbox Serverfiles from {{ bf2sbx_server_filesdir }}/{{ bf2sbx_serverfilename }} into {{ bf2sbx_mod_home }} directory. This will install the sandbox mod into the existing bf2 server"
   ansible.builtin.unarchive:
     group: "{{ bf2_user }}"
     owner: "{{ bf2_user }}"
     remote_src: true
-    src: "{{ bf2_server_filesdir }}"
+    src: "{{ bf2sbx_server_filesdir }}/{{ bf2sbx_serverfilename }}"
     dest: "{{ bf2sbx_mod_home }}"
   become: true
+
+#TODO: Implement me
+  #- name: "Change IP of sbxNetwork server to use for @netsavegroup and @netloadgroup
+  "
+
+
 
 
 
