@@ -18,6 +18,7 @@
     state: directory
     owner: "{{ bf2_user }}"
     group: "{{ bf2_user }}"
+  become: true
     
 - name: "Create dir for core bf2SandboxServerfiles to upload"
   ansible.builtin.file:
@@ -25,6 +26,7 @@
     state: directory
     owner: "{{ bf2_user }}"
     group: "{{ bf2_user }}"
+  become: true
 
 - name: "Create dir for the bf2SBX server home"
   ansible.builtin.file:
@@ -32,6 +34,7 @@
     state: directory
     owner: "{{ bf2_user }}"
     group: "{{ bf2_user }}"
+  become: true
     
 - name: "Upload bf2 serverfiles"
   ansible.builtin.copy:
@@ -39,6 +42,7 @@
     dest: "{{ bf2_server_filesdir }}"
     owner: "{{ bf2_user }}"
     group: "{{ bf2_user }}"
+  become: true
 
 - name: "Upload sandbox serverfiles"
   ansible.builtin.copy:
@@ -46,6 +50,7 @@
     dest: "{{ bf2sbx_server_filesdir }}"
     group: "{{ bf2_user }}"
     owner: "{{ bf2_user }}"
+  become: true
 
 - name: "Decompress bf2 Serverfiles into {{ bf2sbx_server_home }} directory. This will install the bf2 server"
   ansible.builtin.unarchive:
@@ -54,6 +59,7 @@
     remote_src: true
     src: "{{ bf2_server_filesdir }}"
     dest: "{{ bf2sbx_server_home }}"
+  become: true
 
 - name: "Decompress sandbox Serverfiles into {{ bf2sbx_mod_home }} directory. This will install the sandbox mod into the existing bf2 server"
   ansible.builtin.unarchive:
@@ -62,12 +68,9 @@
     remote_src: true
     src: "{{ bf2_server_filesdir }}"
     dest: "{{ bf2sbx_mod_home }}"
+  become: true
 
 # TODO: 
-#   install python3 on the system (own file) (newest) (!NOT IDEMPOTET!)
-#   install pip on the system (newest) (!NOT IDEMPOTET!)
-#   install python3-apt to use the apt module (own file) 
-#   install screen using apt
 #   install bf2hub files https://www.bf2hub.com/home/serversetup.php
 #   add to users crontab:
 #     @reboot @reboot sleep20; cd /home/bf2/sandbox/bf2 && /usr/bin/screen -L -A -m -d -S bf2sbx ./start.sh +modPath mods/sandbox

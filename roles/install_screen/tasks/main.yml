@@ -1,6 +1,10 @@
 ---
 # tasks file for install_screen
 
+- name: "Installing screen on System Message"
+  ansible.builtin.debug:
+    msg: "installing Screen on {{ ansible_hostname }}"
+
 - name: "Install screen using apt"
   ansible.builtin.package:
     name: "screen"

@@ -17,7 +17,7 @@
         msg: "Starting sandbox {{ bf2_server_os }} server installation bf2: v{{ bf2_server_version }}, sandbox: {{ sandbox_server_version }} "
   roles:
     - install_screen
-  #  - install_sandbox_server
+    - install_sandbox_server
 
 
 # more things you can do:
