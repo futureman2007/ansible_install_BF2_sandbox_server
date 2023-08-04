@@ -1,2 +1,5 @@
 ---
 # defaults file for bf2-installer-role
+bf2_user: "battlefield2"
+bf2_serverfilename: "battlefield2_linux_server_1.5.3153.0.tar.gz"
+bf2sbx_serverfilename: "sandbox_server_1.0.1.zip"

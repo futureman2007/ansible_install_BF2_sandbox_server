@@ -1,0 +1,40 @@
+---
+    
+- name: "Preperate Java folders"
+  ansible.builtin.file: 
+    path: "{{ item.path }}"
+    state: directory
+    owner: "{{ item.owner }}"
+    group: "{{ item.group }}"
+  loop:
+    - { path: '{{ java_home }}', owner: '{{ java_home_folderowner }}', group: '{{ java_home_foldergroup }}' }
+    - { path: "/home/{{ tomcat_linuxuser }}/javaTarBall", owner: {{ tomcat_linuxuser }}, group: {{ tomcat_linuxuser }} }
+  become: true
+
+- name: "Download Java TarBall"
+  ansible.builtin.get_url:
+    dest: "/home/{{ tomcat_linuxuser }}/javaTarBall"
+    url: "{{ java_jdk_downloadlink }}"
+  become: true
+
+- name: "Unpack Java files from Java TarBall"
+  ansible.builtin.unarchive:
+    remote_src: true
+    owner: "{{ java_home_folderowner }}"
+    group: "{{ java_home_foldergroup }}"
+    dest: "{{ java_home }}"
+    src: "/home/{{ tomcat_linuxuser }}/javaTarBall"
+    extra_opts: [--strip-components=1]
+  become: true
+
+- name: "Add {{ java_home }} as JAVA_HOME to environment variables"
+  ansible.builtin.lineinfile:
+    backup: true
+    state: present
+    line: "JAVA_HOME={{ java_home | quote }}"
+    insertbefore: BOF
+  become: true
+
+  #TODO: insert JAVA_HOME into PATH WITHOUT deleting existing entries
+
+- 

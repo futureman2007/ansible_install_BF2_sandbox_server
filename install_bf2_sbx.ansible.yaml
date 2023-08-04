@@ -4,12 +4,13 @@
     sandbox_server_version: "1.0.1"
     bf2_server_version: "1.5.3"
     bf2_server_os: "linux"
+
   hosts: "bftwoservers"
   gather_facts: true
 
   vars_prompt:
     - name: "bf2_user_prompted_pw"
-      prompt: "Enter the password for the bf2 Server user to be created:"
+      prompt: "Enter the password for the user bf2 linux user to be created:"
 
   tasks:
     - name: "Startmessage"
@@ -17,7 +18,14 @@
         msg: "Starting sandbox {{ bf2_server_os }} server installation bf2: v{{ bf2_server_version }}, sandbox: {{ sandbox_server_version }} "
   roles:
     - install_needed_apps
-    - install_sandbox_server
+    - role: install_sandbox_server
+      bf2_user: "bf2"
+      bf2_serverfilename: "battlefield2_linux_server_1.5.3153.0.tar.gz"
+      bf2sbx_serverfilename: "sandbox_server_1.0.1.zip"
+    - role: install-netsave-sbx-server
+      tomcat_linuxuser: "bf2"
+      java_version: "20"
+      
 
 
 # more things you can do:
@@ -33,7 +41,7 @@
 #            to download it.
 #
 #   add to users crontab:
-#     @reboot @reboot sleep20; cd /home/bf2/sandbox/bf2 && /usr/bin/screen -L -A -m -d -S bf2sbx ./start.sh +modPath mods/sandbox
+#     @reboot sleep20; cd /home/bf2/sandbox/bf2 && /usr/bin/screen -L -A -m -d -S bf2sbx ./start.sh +modPath mods/sandbox
 #     */5 * * * * /home/bf2/sandbox/scripts/checkServerRunning.sh
 #   
 # In Role install bf2 server: add exeption: if unpack cannot be executed, remove the files (call handler)

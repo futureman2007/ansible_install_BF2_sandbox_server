@@ -1,0 +1,27 @@
+---
+    
+- name: "Preperate Tomcat folders"
+  ansible.builtin.file: 
+    path: "{{ item.path }}"
+    state: directory
+    owner: "{{ tomcat_linuxuser }}"
+    group: "{{ tomcat_linuxuser }}"
+  loop: 
+    - { path: "{{ tomcat_dir }}" }
+    - { path: "/home/{{ tomcat_linuxuser }}/tomcat" }
+
+- name: "Download TomCat TarBall"
+  ansible.builtin.get_url:
+    dest: "/home/{{ tomcat_linuxuser }}/tomcat"
+    url: "{{ tomcat_downloadlink }}"
+  become: true
+
+- name: "Unpack TomCat files from TomCat TarBall"
+  ansible.builtin.unarchive:
+    remote_src: true
+    owner: "{{ tomcat_linuxuser }}"
+    group: "{{ tomcat_linuxuser }}"
+    dest: "{{ java_home }}"
+    src: "/home/{{ tomcat_linuxuser }}/javaTarBall"
+    extra_opts: [--strip-components=1]
+  become: true

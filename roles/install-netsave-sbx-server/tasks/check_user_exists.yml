@@ -1,0 +1,21 @@
+# Prechecks for Java and tomcat installation
+---
+- name: "Gather available local users."
+  ansible.builtin.getent:
+    database: passwd
+
+- name: "Check if user {{ tomcat_linuxuser }} exists."
+  ansible.builtin.assert:
+    fail_msg: "User {{ tomcat_linuxuser }} does not exist! Abborting!"
+    that:
+      - "{{ tomcat_linuxuser }} in getent_passwd.keys()"
+
+- name: "Gather info about {{ tomcat_linuxuser }} home folder."
+  ansible.builtin.stat:
+    path: "/home/{{ tomcat_linuxuser }}"
+  register: home_stat
+
+- name: "Check if {{ tomcat_linuxuser }} home exists."
+  ansible.builtin.fail:
+      msg: "{{ tomcat_linuxuser }}  has no home! This needs ton be created first! Example: /home/{{ tomcat_linuxuser }} . Abborting!"
+  when: not home_stat.stat.exists

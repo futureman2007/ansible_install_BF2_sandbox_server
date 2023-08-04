@@ -1,0 +1,12 @@
+---
+# defaults file for install-netsave-sbx-server
+---
+tomcat_linuxuser: "tomcat"
+tomcat_downloadlink: "https://dlcdn.apache.org/tomcat/tomcat-10/v10.1.11/bin/apache-tomcat-10.1.11.tar.gz"
+tomcat_dir: "/opt/tomcat"
+
+java_version: "20"
+java_home: "/usr/lib/jvm/java-{{ java_version }}-oracle"
+java_home_folderowner: "root"
+java_home_foldergroup: "root"
+java_jdk_downloadlink: "https://download.oracle.com/java/{{ java_version }}/latest/jdk-{{ java_version }}_linux-x64_bin.tar.gz"
