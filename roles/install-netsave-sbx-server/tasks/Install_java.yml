@@ -27,6 +27,18 @@
     extra_opts: [--strip-components=1]
   become: true
 
+- name: "Adding java-paths to path"
+  lineinfile:
+    dest: "/etc/environment"
+    state: "present"
+    backrefs: yes
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  loop: 
+    - { regexp: 'PATH=(["]*)((?!.*?{{ java_bin_path }}).*?)(["]*)$', line: "PATH=\1\2:{{ java_bin_path }}\3"}
+    - { regexp: 'PATH=(["]*)((?!.*?{{ java_db_bin_path }}).*?)(["]*)$', line: "PATH=\1\2:{{ java_db_bin_path }}\3"} 
+  become: true
+
 - name: "Add {{ java_home }} as JAVA_HOME to environment variables"
   ansible.builtin.lineinfile:
     backup: true
@@ -34,7 +46,4 @@
     line: "JAVA_HOME={{ java_home | quote }}"
     insertbefore: BOF
   become: true
-
-  #TODO: insert JAVA_HOME into PATH WITHOUT deleting existing entries
-
 - 

@@ -5,7 +5,12 @@
   ansible.builtin.debug:
     msg: "installing Screen on {{ ansible_hostname }}"
 
-- name: "Install screen using apt"
+- name: "Install screen"
   ansible.builtin.package:
     name: "screen"
+  become: true
+
+- name: "install git"
+  ansible.builtin.package:
+    name: "git"
   become: true

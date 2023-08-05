@@ -1,3 +1,4 @@
 ---
+- include_tasks: check_user_exists.yml
 - include_tasks: install_java.yml
 - include_tasks: install_tomcat.yml

@@ -9,6 +9,7 @@
   loop: 
     - { path: "{{ tomcat_dir }}" }
     - { path: "/home/{{ tomcat_linuxuser }}/tomcat" }
+  become: true
 
 - name: "Download TomCat TarBall"
   ansible.builtin.get_url:
