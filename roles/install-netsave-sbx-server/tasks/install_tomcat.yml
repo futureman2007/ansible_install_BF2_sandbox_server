@@ -28,3 +28,6 @@
     src: "/home/{{ tomcat_linuxuser }}/javaTarBall"
     extra_opts: [--strip-components=1]
   become: true
+
+  #TODO: create service for tomcat and start it https://stackoverflow.com/questions/47182359/ansible-start-tomcat-on-host
+  # create handlers to check if server is running?
