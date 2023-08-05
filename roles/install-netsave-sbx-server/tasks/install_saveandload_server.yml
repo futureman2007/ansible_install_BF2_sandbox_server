@@ -1,0 +1,16 @@
+- name: "Preperate saveandload folder"
+  ansible.builtin.file: 
+    path: "/home/{{ tomcat_linuxuser }}/saveandloadserver"
+    state: directory
+    owner: "{{ tomcat_linuxuser }}"
+    group: "{{ tomcat_linuxuser }}"
+  become: true
+
+- name: "Download saveandload .war file"
+  ansible.builtin.get_url:
+    dest: "/home/{{ tomcat_linuxuser }}/"
+    url: "{{ tomcat_downloadlink }}"
+  become: true
+
+- name: "Copy .WAR file into {{ tomcat_webapps_folder }}"
+
