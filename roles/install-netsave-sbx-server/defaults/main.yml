@@ -6,7 +6,8 @@ tomcat_downloadlink: "https://dlcdn.apache.org/tomcat/tomcat-10/v10.1.11/bin/apa
 tomcat_dir: "/opt/tomcat"
 tomcat_webapps_folder: "{{ tomcat_dir }}/webapps"
 
-saveandload_git_url:
+saveandload_version: "v1.0"
+saveandload_git_url: "https://github.com/futureman2007/BF2Sbx_SaveAndLoadServer/releases/download/{{ saveandload_version }}/groupmanager.war"
 
 java_version: "20"
 java_home: "/usr/lib/jvm/java-{{ java_version }}-oracle"

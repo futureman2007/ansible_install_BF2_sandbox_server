@@ -6,11 +6,11 @@
     group: "{{ tomcat_linuxuser }}"
   become: true
 
-- name: "Download saveandload .war file"
+- name: "Download saveandload .war file into {{ tomcat_webapps_folder }}"
   ansible.builtin.get_url:
-    dest: "/home/{{ tomcat_linuxuser }}/"
-    url: "{{ tomcat_downloadlink }}"
+    dest: "{{ tomcat_webapps_folder }}"
+    url: "{{ saveandload_git_url }}"
+    owner: "{{ tomcat_linuxuser }}"
+    group: "{{ tomcat_linuxuser }}"
   become: true
-
-- name: "Copy .WAR file into {{ tomcat_webapps_folder }}"
 
